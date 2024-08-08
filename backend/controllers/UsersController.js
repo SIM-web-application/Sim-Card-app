@@ -1,11 +1,10 @@
-import { response } from "express";
-import Users from "../models/Users.js";
+import User from "../models/User.js";
 import bcrypt from 'bcryptjs'
 import jwt from "jsonwebtoken";
 
 export const getAllUser = async(request, response)=>{
     try {
-        const users  = await Users.find({});
+        const users  = await User.find({});
         if(users.length === 0){
             return response.status(404).json({message: "No user"})
         }
@@ -23,14 +22,14 @@ export const register = async (request, response)=> {
     const {name, email, password, age} = request.body;
 
     try {
-        let user = await Users.findOne({email});
+        let user = await User.findOne({email});
         if(user) {
             return response.status(400).json({message:"User's email already exists"});
         }
         const salt = await bcrypt.genSalt(10);
         const hashPass = await bcrypt.hash(password, salt);
 
-        user = new Users({
+        user = new User({
             name,
             email, 
             password :hashPass,
@@ -63,7 +62,7 @@ export const register = async (request, response)=> {
 export const login = async(request, response)=> {
     const {email, password} = request.body;
     try {
-        const user = await Users.findOne({email});
+        const user = await User.findOne({email});
         if(!user){
             return response.status(404).json({message:"Invalid email"});
         }
@@ -94,7 +93,7 @@ export const logout = async(request, response)=> {
 
 export const getMe = async(request, response)=> {
     try {
-        const user = await Users.findById(request.user);
+        const user = await User.findById(request.user);
         if(!user){
             return response.status(404).json({message:"User not found"});
         }
@@ -112,11 +111,11 @@ export const updateDetail = async(request, response)=> {
     const {name, email, age} = request.body;
 
     try {
-        const user = await Users.findById(request.user);
+        const user = await User.findById(request.user);
         if(!user){
             return response.status(404).json({message:"User not found"});
         }
-        const userExists = await Users.findOne({email});
+        const userExists = await User.findOne({email});
         if(userExists && userExists._id.toString() !== user._id.toString()){
             return response.status(404).json({message:"Email already Exists"});
         }
@@ -138,7 +137,7 @@ export const updateDetail = async(request, response)=> {
 export const updatePassword = async(request, response)=> {
     const {password, newPassword} = request.body;
     try {
-        const user = await Users.findById(request.user);
+        const user = await User.findById(request.user);
         if(!user){
             return response.status(404).json({message:"User not found"});
         }
@@ -158,7 +157,7 @@ export const updatePassword = async(request, response)=> {
 };
 export const deleteUser = async(request, response)=> {
     try {
-        const user = await Users.findById(request.user);
+        const user = await User.findById(request.user);
         console.log("user is: ",user)
         if(!user){
             return response.status(404).json({message:"User not found"});
