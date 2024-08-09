@@ -5,10 +5,10 @@
                 <div class="text-white font-iciel font-bold text-2xl sm:text-3xl lg:text-5xl leading-snug w-full lg:w-3/5">
                     Nhà Mạng Siêu Cuốn
                 </div>
-                <div class="w-full sm:w-[154px] h-[6px] rounded bg-white mt-2"></div>
+                <div class="w-full md:w-[250px] lg:w-[350px] xl:w-[400px] h-[6px] rounded bg-white mt-2"></div>
             </div>
             <div class="mt-9">
-                <div class="ant-row css-1b4wp77 flex flex-wrap md:flex-nowrap" style="margin-left: -18px; margin-right: -18px;">
+                <div class="ant-row css-1b4wp77 flex flex-wrap lg:flex-nowrap" style="margin-left: -18px; margin-right: -18px;">
                     <div class="ant-col ant-col-24 md:ant-col-8 css-1b4wp77 px-4">
                         <div class="flex flex-col items-center pt-10 sm:pt-16">
                             <img alt="super data"
