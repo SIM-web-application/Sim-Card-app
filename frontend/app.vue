@@ -1,15 +1,15 @@
-import { NuxtLayout } from './.nuxt/components';
+<!-- import { NuxtLayout } from './.nuxt/components'; -->
 <template>
   <div>
     <NuxtLayout >
-      <Header />
+      <!-- <Header /> -->
       <NuxtPage />
-      <Footer />
+      <!-- <Footer /> -->
     </NuxtLayout>
   </div>
 </template>
 
 <script setup>
-import Header from '~/components/Header.vue';
-import Footer from '~/components/Footer.vue';
+// import Header from '~/components/Header.vue';
+// import Footer from '~/components/Footer.vue';
 </script>

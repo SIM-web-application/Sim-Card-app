@@ -164,9 +164,9 @@
                         style="padding-left: 16px; padding-right: 16px">
                         <div class="font-svn-circular">
                             Giấy phép thiết lập Trang Thông tin điện tử tổng hợp số
-                            19/GP-STTTT do Sở Thông tin &amp; Truyền thông TP Hồ Chí Minh cấp
+                            19/GP-STTTT do Sở Thông tin &amp; Truyền thông TP Đà Nẵng cấp
                             ngày 15/4/2022.Giấy chứng nhận đăng ký kinh doanh số 0315981331 do
-                            Sở Kế hoạch và Đầu tư TP Hồ Chí Minh cấp lần đầu ngày 24/10/2019,
+                            Sở Kế hoạch và Đầu tư TP Đà Nẵng cấp lần đầu ngày 24/10/2019,
                             đăng ký thay đổi lần thứ 7 ngày 27/06/2022.
                         </div>
                     </div>

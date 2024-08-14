@@ -4,7 +4,7 @@ export const getAllSim = async (req, res) => {
     try {
         const sims = await SimCard.find({});
         if(sims.length === 0){
-            return res.status(404).json({message: "No user"})
+            return res.status(404).json({message: "No Sim"})
         }
         return res.status(200).json({
             count: sims.length,
@@ -33,6 +33,10 @@ export const getOneSim = async(req, res) =>{
 export const createSim = async(req, res) => {
     const {phoneNumber, type, simPrice, plan} = req.body;
     try {
+        const existingSim = await SimCard.findOne({ phoneNumber });
+        if (existingSim) {
+            return res.status(400).json({ message: "Sim Number is exist" });
+        }
         const newSim = await SimCard.create({
             phoneNumber,
             type,

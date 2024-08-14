@@ -22,7 +22,8 @@ const SimCardSchemal = mongoose.Schema(
     plan: {
       name: { type: String, required: true },
       price: { type: Number, required: true },
-      data: { type: String, required: true }, // e.g., '10GB'
+      dataMonth: { type: String, required: true }, // e.g., '60GB'
+      dataDay: { type: String, required: true }, // e.g., '3GB'
       minutes: { type: Number, required: true }, // e.g., 1000 minutes
       sms: { type: Number, required: true }, // e.g., 500 SMS
       validity: { type: String, required: true }, // e.g., '30 days'
