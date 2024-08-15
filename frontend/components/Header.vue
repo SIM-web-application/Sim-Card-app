@@ -12,8 +12,9 @@
                         src="https://mylocal.vn/_next/static/media/local-logo-white.63f3352e.svg"
                         style="color: transparent;"></NuxtLink>
             </div>
-            <div class="flex justify-between items-center">
-                <div class="hidden menu-txt-wrapper gap-[28px] d-none lg:flex"><NuxtLink to="/sim">
+            <div class="list-menu flex justify-between items-center">
+                <div class="hidden menu-txt-wrapper gap-[28px] d-none lg:flex">
+                    <NuxtLink to="/sim">
                         <div class="menu-header-item cursor-pointer"><span
                                 class="text-[#1e1e1e] lg:text-white text-[18px] leading-[25px]">SIM Siêu Data</span>
                         </div>
@@ -21,14 +22,16 @@
                     <NuxtLink to="/sim">
                         <div class="menu-header-item cursor-pointer"><span
                                 class="text-[#1e1e1e] lg:text-white text-[18px] leading-[25px]">SIM Số đẹp</span></div>
-                    </NuxtLink><a href="/tin-tuc-uu-dai">
+                    </NuxtLink>
+                    <NuxtLink to="/tin-tuc-uu-dai">
                         <div class="menu-header-item cursor-pointer"><span
                                 class="text-[#1e1e1e] lg:text-white text-[18px] leading-[25px]">Tin tức &amp; Ưu
                                 đãi</span></div>
-                    </a><a href="/ho-tro?type=download-app">
+                    </NuxtLink>
+                    <NuxtLink to="/ho-tro?type=download-app">
                         <div class="menu-header-item cursor-pointer"><span
                                 class="text-[#1e1e1e] lg:text-white text-[18px] leading-[25px]">Hỗ trợ</span></div>
-                    </a>
+                    </NuxtLink>
                 </div>
                 <div class="menu-action-wrapper flex gap-[13px] md:min-w-[248px] justify-end md:ml-[96px]"><a
                         href="/sim-sieu-data/gio-hang">
@@ -54,7 +57,11 @@
 </template>
 
 <script setup>
-
+    
 </script>
 
-<style scoped></style>
+<style scoped>
+    .menu-drawer-mb:hover .list-menu{
+        display: block;
+    }
+</style>
