@@ -13,7 +13,9 @@
     "cookie-universal": "^2.2.2",
     "nuxt": "^3.12.4",
     "path": "^0.12.7",
-    "vue": "latest"
+    "vee-validate": "^4.13.2",
+    "vue": "latest",
+    "yup": "^1.4.0"
   },
   "devDependencies": {
     "tailwindcss": "^3.4.8"

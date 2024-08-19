@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="grid grid-cols-4">
+        <div class=" grid grid-cols-4">
             <div class="col-span-3 ml-10">
                 <header class="grid grid-cols-2 grid-flow-col py-2">
                     <div class="col-span-1 flex items-center pl-8">
@@ -17,8 +17,8 @@
                 </header>
             </div>
             <div class="col-span-1 text-black bg-gray-100">
-                <div class=" px-2 flex items-center h-full">
-                    Giỏ Hàng
+                <div class=" px-2 flex items-center h-full font-bold">
+                    Giỏ hàng
                 </div>
             </div>
 
@@ -34,7 +34,7 @@
 </template>
 
 <script setup>
-
+    
 </script>
 
 <style scoped></style>

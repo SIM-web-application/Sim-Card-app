@@ -40,11 +40,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useCartStore } from '~/stores/cart';
 
-const { updateCart, getCartItems } = useCartStore();
 const props = defineProps(['sim']);
+const { updateCart, getCartItems } = useCartStore();
 const quantity = ref(0);
 
 onMounted(() => {
@@ -52,6 +52,9 @@ onMounted(() => {
   if (itemInCart) {
     quantity.value = itemInCart.quantity;
   }
+});
+watch(quantity, (newQuantity) => {
+  updateCart({ ...props.sim, quantity: newQuantity });
 });
 
 const increaseQuantity = () => {

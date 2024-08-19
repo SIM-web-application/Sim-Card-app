@@ -1,9 +1,12 @@
 // stores/cart.js
 export const useCartStore = () => {
     const cart = useState('cart', () => {
+    if (typeof window !== 'undefined') { // Kiểm tra nếu mã đang chạy trên client
       const storedCart = sessionStorage.getItem('cart');
       return storedCart ? JSON.parse(storedCart) : [];
-    });
+    }
+    return []; // Trả về mảng rỗng nếu chạy trên server
+  });
   
     const updateCart = (item) => {
       const cartItems = [...cart.value];
@@ -22,6 +25,11 @@ export const useCartStore = () => {
       cart.value = cartItems;
       sessionStorage.setItem('cart', JSON.stringify(cartItems));
     };
+
+    const clearCart = () => {
+      cart.value = [];
+      sessionStorage.removeItem('cart');
+    };
   
     const getCartItems = () => {
       return cart.value;
@@ -31,6 +39,7 @@ export const useCartStore = () => {
       cart,
       updateCart,
       getCartItems,
+      clearCart
     };
   };
   
