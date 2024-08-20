@@ -1,6 +1,6 @@
 <!-- components/cart.vue -->
-<template>
-    <div class="col-span-1 min-h-screen h-auto bg-gray-100 px-2 pt-1 flex flex-col justify-between">
+<template >
+    <div  class="hidden col-span-1 min-h-screen h-auto bg-gray-100 px-2 pt-1 lg:flex flex-col justify-between">
       <div v-if="cartItems.length === 0" class="p-16">Chưa có sản phẩm</div>
       <div v-else>
         <div v-for="item in cartItems" :key="item._id" class="border-b-2 py-5">

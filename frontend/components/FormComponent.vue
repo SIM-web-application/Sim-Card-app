@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="grid grid-cols-3">
-        <form @submit="handleSubmit" class="col-span-2">
+        <form @submit="handleSubmit" class="col-span-3 lg:col-span-2 p-4 space-y-3 pb-16 lg:pb-0">
           <h1 class="font-semibold pt-8 pb-3">Thông tin cá nhân:</h1>
           <div class="flex flex-col">
             <label for="name" class="mb-2 font-semibold">Họ và tên:<span class="text-rose-500">*</span></label>
@@ -109,12 +109,31 @@
             <span v-if="errors.note" class="text-red-500 text-xs">{{ errors.note }}</span>
           </div>
           <!-- Hiển thị nút button nếu form hợp lệ -->
-          <div :class="currentStep === 3 ? 'hidden' : ''" class="flex justify-end py-8 text-white">
+           <!-- web -->
+          <div :class="currentStep === 3 ? 'hidden' : ''" class="hidden lg:flex justify-end py-8 text-white">
             <button
               :disabled="!isFormValid || isReadOnly"
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
               type="submit"
               class="p-2 bg-[#FF353C] rounded-lg flex items-center"
+            >
+              <p class="">Tiếp tục</p>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 h-full">
+                <path
+                  fill-rule="evenodd"
+                  d="M10 2a.75.75 0 0 1 .75.75v12.59l1.95-2.1a.75.75 0 1 1 1.1 1.02l-3.25 3.5a.75.75 0 0 1-1.1 0l-3.25-3.5a.75.75 0 1 1 1.1-1.02l1.95 2.1V2.75A.75.75 0 0 1 10 2Z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+          <!-- btn mobile -->
+          <div :class="currentStep === 3 ? 'hidden' : ''" class="lg:hidden fixed bottom-0 w-full flex justify-center text-white ">
+            <button
+              :disabled="!isFormValid || isReadOnly"
+              :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
+              type="submit"
+              class="w-full m-1 mr-7 p-4 bg-[#FF353C] rounded-lg flex items-center justify-center"
             >
               <p class="">Tiếp tục</p>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 h-full">
@@ -132,7 +151,7 @@
   </template>
   
   <script setup>
-  import { reactive, ref, computed } from 'vue'
+  import { reactive, ref, computed, watchEffect} from 'vue'
   import * as Yup from 'yup'
   import { useStepStore } from '~/stores/steps'
   
@@ -147,14 +166,17 @@
     district: '',
     ward: '',
     address: '',
-    note: ''
+    note: '',
+    payment: ''
   })
   
   const errors = ref({})
   
   // Biến trạng thái chỉ đọc
   const isReadOnly = ref(false)
-  
+  watchEffect(() => {
+  isReadOnly.value = currentStep.value > 2
+})
   // Xác thực form với Yup
   const schema = Yup.object().shape({
     name: Yup.string()
@@ -212,8 +234,8 @@
     }  
     console.log('valid form')
     console.log('formData:',form)
-    isReadOnly.value = true
     setStep(3)
+    isReadOnly.value = true
     
     // Emit dữ liệu khi form hợp lệ
     emit('submit', form)
