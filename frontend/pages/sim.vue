@@ -54,7 +54,7 @@
                     <div v-if="simChosens > 0" class="flex bg-white border-t p-2 justify-between">
                         <div class="text-black bg-white">
                             <h1><b>TẠM TÍNH</b></h1>
-                            <P class="text-sm">Đã bao gồm VAT</P>
+                            <p class="text-sm">Đã bao gồm VAT</p>
                         </div>
                         <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>
                         
