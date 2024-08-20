@@ -3,7 +3,7 @@
         <div class=" grid grid-cols-4">
             <div class="col-span-4 lg:col-span-3 md:ml-10 ">
                 <header
-                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b lg:border-none  ">
+                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b  ">
                     <div class="col-span-1 flex items-center pl-8">
                         <button @click="handleRoute"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                 fill="currentColor" class="size-5 hover:text-rose-500">
@@ -17,12 +17,14 @@
                     <div class="col-span-2"><img alt="Local" class="text-rose-500 w-2/6 md:w-1/6  h-auto "
                             src="/logo-local1.png" style="color: transparent;"></div>
                     <!-- giỏ hàng mobile -->
-                    <button @click="stateForm" class="lg:hidden px-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
-                            <path
-                                d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-                        </svg>
-                    </button>
+                     <div>
+                        <button @click="stateForm" class="lg:hidden px-4">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
+                                <path
+                                    d="M2.25 2.25a.75.75 0 0 0 0 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 0 0-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 0 0 0-1.5H5.378A2.25 2.25 0 0 1 7.5 15h11.218a.75.75 0 0 0 .674-.421 60.358 60.358 0 0 0 2.96-7.228.75.75 0 0 0-.525-.965A60.864 60.864 0 0 0 5.68 4.509l-.232-.867A1.875 1.875 0 0 0 3.636 2.25H2.25ZM3.75 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM16.5 20.25a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
+                            </svg>
+                        </button>
+                    </div>
                 </header>
             </div>
             <div class="hidden lg:block col-span-1 text-black bg-gray-100">
@@ -35,6 +37,7 @@
         <div v-if="isForm" @click="stateForm" class="fixed bottom-0 bg-[#0005] w-screen h-screen mt-20">
             <div class="fixed bottom-0 w-full h-fit bg-white border-t-2 rounded-t-3xl">
                 <p class="p-2 text-2xl"><b>Giỏ hàng</b></p>
+                <div v-if="cartNumber === 0" class="p-2 py-4 text-slate-500">Không có sản phẩm</div>
                 <div v-for="item in cartItems" :key="item._id" class="border-b-2 py-5 p-2 ">
                     <h1 class="font-bold py-2">SIM Local . Gói {{ item.plan.name }}</h1>
                     <div class="flex justify-between text-xl">

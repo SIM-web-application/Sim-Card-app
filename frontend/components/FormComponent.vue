@@ -234,11 +234,12 @@
     }  
     console.log('valid form')
     console.log('formData:',form)
+    
+    sessionStorage.setItem('formData', JSON.stringify(form))
     setStep(3)
     isReadOnly.value = true
     
-    // Emit dữ liệu khi form hợp lệ
-    emit('submit', form)
+    // Emit event with form data
   }
   
   // Xóa lỗi khi người dùng nhập
