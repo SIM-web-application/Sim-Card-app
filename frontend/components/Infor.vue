@@ -84,10 +84,10 @@
                         </div>
                     <button v-if="currentStep === 4" @click="goToNextStep"
                         class="w-full bg-[#FF353C] p-2 rounded-md text-white lg:mb-2">Xác nhận đơn hàng</button>
-                    <NuxtLink v-if="currentStep === 5" to="/" @click.prevent="goToMainPage"
+                    <button v-if="currentStep === 5" @click.prevent="goToMainPage"
                         class="w-full p-4 rounded-md text-[#FF353C] lg:border text-center inline-block lg:mb-2">
                         <button><b>Quay trở về trang chính</b></button>
-                    </NuxtLink>
+                    </button>
                 </div>
                 </div>
     </div>
@@ -95,7 +95,11 @@
 
 <script setup>
     import { useStepStore } from '../stores/steps';
+    import { useRouter } from 'vue-router';
+    import {useCartStore} from '../stores/cart';
 
+    const { clearCart } = useCartStore();
+    const router = useRouter();
     const form = JSON.parse(sessionStorage.getItem('formData') || '{}')
     console.log('dữ liệu trong form',form)
     const {currentStep, setStep} = useStepStore();
