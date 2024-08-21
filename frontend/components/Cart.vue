@@ -12,7 +12,7 @@
         </div>
       </div>
       
-      <div v-if="cartItems.length > 0" :class="currentStep !== 3 ? 'border-t-2':''" class=" pb-16 pt-2">
+      <div v-if="cartItems.length > 0" :class="currentStep !== 3 ? 'border-t-2':''" class="pb-16 pt-2">
         <div v-if="currentStep >= 3">
           <div class="flex justify-between">
               <p>{{ cartNumber }} sản phẩm</p>

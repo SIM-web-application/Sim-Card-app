@@ -16,7 +16,7 @@
                     <!-- logo -->
                     <div class="col-span-2"><img alt="Local" class="text-rose-500 w-2/6 md:w-1/6  h-auto "
                             src="/logo-local1.png" style="color: transparent;"></div>
-                    <!-- giỏ hàng mobile -->
+                    <!-- icon giỏ hàng mobile -->
                      <div>
                         <button @click="stateForm" class="lg:hidden px-4">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5">
@@ -34,27 +34,29 @@
             </div>
 
         </div>
+        <!-- giỏ hàng mobile -->
         <div v-if="isForm" @click="stateForm" class="fixed bottom-0 bg-[#0005] w-screen h-screen mt-20">
             <div class="fixed bottom-0 w-full h-fit bg-white border-t-2 rounded-t-3xl">
                 <p class="p-2 text-2xl"><b>Giỏ hàng</b></p>
                 <div v-if="cartNumber === 0" class="p-2 py-4 text-slate-500">Không có sản phẩm</div>
-                <div v-for="item in cartItems" :key="item._id" class="border-b-2 py-5 p-2 ">
+                <div v-for="item in cartItems" :key="item._id" class="border-b-2 py-3 p-2 ">
                     <h1 class="font-bold py-2">SIM Local . Gói {{ item.plan.name }}</h1>
                     <div class="flex justify-between text-xl">
                         <p>Số lượng: {{ item.quantity }}</p>
                         <p class="font-bold">{{ item.quantity * item.simPrice }} đ</p>
                     </div>
                 </div>
-
+                <div v-if="cartNumber > 0 && currentStep >= 3" class="flex bg-white border-t p-2 justify-between">
+                        <div class="text-black bg-white">
+                            <h1><b>{{ currentStep >= 4 ? 'TỔNG TIỀN': 'TẠM TÍNH' }}</b></h1>
+                            <p class="text-sm">Đã bao gồm VAT</p>
+                        </div>
+                        <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>
+                        
+                </div>
             </div>
         </div>
         <slot />
-        <!-- <div class="grid grid-cols-4 border-t-2"> -->
-        <!-- <div class="col-span-3 ml-10"> -->
-        <!-- <slot />                 -->
-        <!-- </div>
-            <Cart /> -->
-        <!-- </div> -->
     </div>
 </template>
 
@@ -68,19 +70,17 @@
     const { getCartItems, clearCart} = useCartStore();
     const cartItems = computed(() => getCartItems());
     const cartNumber = computed(() => cartItems.value.length);
+    const totalAmount = computed(() => {
+      return cartItems.value.reduce((sum, item) => sum + (item.quantity * item.simPrice), 0);
+    });
+
 
     const {currentStep , setStep, setIsForm ,isForm} = useStepStore();
     const router = useRouter()
     // trạng thái giỏ hàng mb
     const stateForm = () => {
         setIsForm(!isForm.value);
-};
-    const goToMainPage = () => {
-        router.push('/');
-        clearCart(); // Xóa giỏ hàng
-        setStep(1)  
     };
-
     const handleRoute = () =>{
         if(currentStep.value === 1){
             navigateTo('/')

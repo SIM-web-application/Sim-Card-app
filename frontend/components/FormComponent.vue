@@ -1,7 +1,7 @@
 <template>
     <div>
       <div class="grid grid-cols-3">
-        <form @submit="handleSubmit" class="col-span-3 lg:col-span-2 p-4 space-y-3 pb-16 lg:pb-0">
+        <form @submit="handleSubmit" :class="currentStep === 3 ? 'hidden lg:block':''" class="col-span-3 lg:col-span-2 p-4 space-y-3 pb-16 lg:pb-0">
           <h1 class="font-semibold pt-8 pb-3">Thông tin cá nhân:</h1>
           <div class="flex flex-col">
             <label for="name" class="mb-2 font-semibold">Họ và tên:<span class="text-rose-500">*</span></label>
@@ -110,7 +110,7 @@
           </div>
           <!-- Hiển thị nút button nếu form hợp lệ -->
            <!-- web -->
-          <div :class="currentStep >= 3 ? 'hidden' : ''" class="hidden lg:flex justify-end py-8 text-white">
+          <div v-if="currentStep <3" class="hidden lg:flex justify-end py-8 text-white">
             <button
               :disabled="!isFormValid || isReadOnly"
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
@@ -129,7 +129,7 @@
             </button>
           </div>
           <!-- btn mobile -->
-          <div v-if="!isForm" :class="currentStep === 3 ? 'hidden' : ''" class="lg:hidden fixed bottom-0 w-full flex justify-center text-white ">
+          <div v-if="!isForm || currentStep === 3" class="lg:hidden fixed bottom-0 w-full flex justify-center text-white ">
             <button
               :disabled="!isFormValid || isReadOnly"
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"

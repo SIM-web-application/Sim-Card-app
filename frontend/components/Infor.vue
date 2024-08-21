@@ -63,7 +63,16 @@
                 </div>
             </div>
             <div :class="currentStep <=4 ? 'border-t-2':''" class=" lg:w-2/3 px-4">
-                <div v-if="currentStep === 4" class=" text-center text-sm py-4">Bằng việc tiến hành đặt hàng,
+                <div v-if="simChosens > 0 " class=" lg:hidden flex bg-white border-t py-2 justify-between">
+                        <div class="text-black bg-white">
+                            <h1><b>TẠM TÍNH</b></h1>
+                            <p class="text-xs ">Đã bao gồm VAT <span v-if="currentStep >= 3">và phí vận chuyển</span></p>
+                        </div>
+                        <h1 class="text-rose-500 text-xl">
+                            <b>{{ currentStep < 3 ? totalAmount : totalAmount + 30000 }} đ</b></h1>
+                        
+                </div>
+                <div v-if="currentStep === 4" class="text-center text-xs lg:text-sm py-4">Bằng việc tiến hành đặt hàng,
                     tôi đồng ý với điều kiện và <b>Điều khoản mua hàng</b>, cũng như đã hiểu và đồng ý
                     chia sẻ thông tin cho mục đích mua hàng theo <b>Chính sách bảo mật</b> tại LVTLocal.vn
                 </div>
@@ -87,7 +96,7 @@
                 <button v-if="currentStep === 4" @click="goToNextStep"
                     class="w-full bg-[#FF353C] p-2 py-4 lg:py-2  rounded-md text-white lg:mb-2 my-2">Xác nhận đơn hàng</button>
                 <button v-if="currentStep === 5" @click.prevent="goToMainPage"
-                    class="w-full p-4 rounded-md text-[#FF353C] lg:border text-center inline-block lg:mb-2 my-2">
+                    class="w-full p-4 rounded-md text-[#FF353C] lg:border text-center inline-block lg:mb-16 my-2">
                     <button><b>Quay trở về trang chính</b></button>
                 </button>
             </div>
@@ -96,12 +105,19 @@
 </template>
 
 <script setup>
+    import { computed } from 'vue';
     import { useStepStore } from '../stores/steps';
     import {useCartStore} from '../stores/cart';
     import { useRouter } from 'vue-router';
 
 
-    const { clearCart } = useCartStore();
+    const { clearCart,getCartItems  } = useCartStore();
+    const cartItems = computed(() => getCartItems());
+    const simChosens = computed(() => cartItems.value.length);
+    const totalAmount = computed(() => {
+    return cartItems.value.reduce((sum, item) => sum + (item.quantity * item.simPrice), 0);
+    })
+
     const router = useRouter();
     const form = JSON.parse(sessionStorage.getItem('formData') || '{}')
     console.log('dữ liệu trong form',form)
