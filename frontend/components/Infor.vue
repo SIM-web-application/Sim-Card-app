@@ -97,8 +97,8 @@
 
 <script setup>
     import { useStepStore } from '../stores/steps';
-    import { useRouter } from 'vue-router';
     import {useCartStore} from '../stores/cart';
+    import { useRouter } from 'vue-router';
 
 
     const { clearCart } = useCartStore();
@@ -111,12 +111,12 @@
         if (currentStep.value) {
             setStep(currentStep.value + 1);
         }
-};
-const goToMainPage = () => {
-    router.push('/');
-    clearCart(); // Xóa giỏ hàng
-    setStep(1)  
-};
+    };
+    const goToMainPage = () => {
+        router.push('/');
+        clearCart(); // Xóa giỏ hàng
+        setStep(1)  
+    };
 </script>
 
 <style scoped>

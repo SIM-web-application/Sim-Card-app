@@ -14,7 +14,7 @@
               @input="validateField('name')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.name" class="text-red-500 text-xs">{{ errors.name }}</span>
+            <span v-if="errors.name && touchedFields.name" class="text-red-500 text-xs">{{ errors.name }}</span>
           </div>
           <div class="flex flex-col">
             <label for="phone" class="mb-2 font-semibold">Số điện thoại:<span class="text-rose-500">*</span></label>
@@ -23,11 +23,11 @@
               id="phone"
               v-model="form.phone"
               type="text"
-              class="p-2 border rounded"
+              class="p-2 border rounded outline-none"
               @input="validateField('phone')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.phone" class="text-red-500 text-xs">{{ errors.phone }}</span>
+            <span v-if="errors.phone && touchedFields.phone" class="text-red-500 text-xs">{{ errors.phone }}</span>
           </div>
           <div class="flex flex-col">
             <label for="email" class="mb-2 font-semibold">Địa chỉ email:<span class="text-rose-500">*</span></label>
@@ -36,11 +36,11 @@
               id="email"
               v-model="form.email"
               type="email"
-              class="p-2 border rounded"
+              class="p-2 border rounded outline-none"
               @input="validateField('email')"
               :readonly="isReadOnly"
-            />
-            <span v-if="errors.email" class="text-red-500 text-xs">{{ errors.email }}</span>
+            /> 
+            <span v-if="errors.email && touchedFields.email" class="text-red-500 text-xs">{{ errors.email }}</span>
           </div>
           <h1 class="font-semibold pt-8 pb-3">Địa chỉ giao hàng:</h1>
           <div class="flex flex-col">
@@ -54,7 +54,7 @@
               @input="validateField('city')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.city" class="text-red-500 text-xs">{{ errors.city }}</span>
+            <span v-if="errors.city && touchedFields.city" class="text-red-500 text-xs">{{ errors.city }}</span>
           </div>
           <div class="flex flex-col">
             <label for="district" class="mb-2 font-semibold">Quận/ Huyện:<span class="text-rose-500">*</span></label>
@@ -67,7 +67,7 @@
               @input="validateField('district')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.district" class="text-red-500 text-xs">{{ errors.district }}</span>
+            <span v-if="errors.district && touchedFields.district" class="text-red-500 text-xs">{{ errors.district }}</span>
           </div>
           <div class="flex flex-col">
             <label for="ward" class="mb-2 font-semibold">Phường/ Xã:<span class="text-rose-500">*</span></label>
@@ -80,7 +80,7 @@
               @input="validateField('ward')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.ward" class="text-red-500 text-xs">{{ errors.ward }}</span>
+            <span v-if="errors.ward && touchedFields.ward" class="text-red-500 text-xs">{{ errors.ward }}</span>
           </div>
           <div class="flex flex-col">
             <label for="address" class="mb-2 font-semibold">Địa chỉ:<span class="text-rose-500">*</span></label>
@@ -93,7 +93,7 @@
               @input="validateField('address')"
               :readonly="isReadOnly"
             />
-            <span v-if="errors.address" class="text-red-500 text-xs">{{ errors.address }}</span>
+            <span v-if="errors.address && touchedFields.address" class="text-red-500 text-xs">{{ errors.address }}</span>
           </div>
           <div class="flex flex-col">
             <label for="note" class="mb-2 font-semibold">Ghi chú:</label>
@@ -129,7 +129,7 @@
             </button>
           </div>
           <!-- btn mobile -->
-          <div :class="currentStep === 3 ? 'hidden' : ''" class="lg:hidden fixed bottom-0 w-full flex justify-center text-white ">
+          <div v-if="!isForm" :class="currentStep === 3 ? 'hidden' : ''" class="lg:hidden fixed bottom-0 w-full flex justify-center text-white ">
             <button
               :disabled="!isFormValid || isReadOnly"
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
@@ -154,11 +154,12 @@
   </template>
   
   <script setup>
-  import { reactive, ref, computed, watchEffect, onMounted,watch } from 'vue';
+  import { reactive, ref, computed, watchEffect, onMounted } from 'vue';
   import * as Yup from 'yup'
   import { useStepStore } from '~/stores/steps'
   
-  const { currentStep, setStep } = useStepStore()
+
+  const { currentStep, setStep, isForm } = useStepStore()
   
   // Khởi tạo state cho form và lỗi
   const form = reactive({
@@ -174,6 +175,7 @@
   })
   
   const errors = ref({})
+  const touchedFields = ref({});
   
   // Biến trạng thái chỉ đọc
   const isReadOnly = ref(false)
@@ -206,7 +208,7 @@ onMounted(() => {
     .matches(/^(?:\+84|0)(3[2-9]|5[6-9]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$/, 
     'Số điện thoại phải bắt đầu bằng +84 hoặc 0 và thuộc các nhà mạng hợp lệ tại Việt Nam')
     .min(10, 'Số điện thoại ít nhất 10')
-    .max(11, 'Số điện thoại không đúng')
+    .max(12, 'Số điện thoại không đúng')
     .required('Số điện thoại là bắt buộc'),
   
     city: Yup.string()
@@ -230,6 +232,7 @@ onMounted(() => {
 
   // Hàm xác thực một trường cụ thể
   const validateField = (field) => {
+    touchedFields.value[field] = true; // Đánh dấu trường này đã được chạm
   try {
     schema.validateSyncAt(field, form, { abortEarly: false });
     delete errors.value[field];

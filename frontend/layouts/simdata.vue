@@ -59,22 +59,37 @@
 </template>
 
 <script setup>
+    import { computed } from 'vue';
     import { useStepStore } from '~/stores/steps';
+    import { useCartStore } from '~/stores/cart';
+    import { useRouter } from 'vue-router';
     import { navigateTo } from 'nuxt/app';
     
+    const { getCartItems, clearCart} = useCartStore();
+    const cartItems = computed(() => getCartItems());
+    const cartNumber = computed(() => cartItems.value.length);
+
     const {currentStep , setStep, setIsForm ,isForm} = useStepStore();
-    
+    const router = useRouter()
+    // trạng thái giỏ hàng mb
     const stateForm = () => {
-        console.log('Trước khi đổi:', isForm.value); // In giá trị trước khi thay đổi
-    setIsForm(!isForm.value);
-        console.log('Sau khi đổi:', isForm.value); // In giá trị sau khi thay đổi
+        setIsForm(!isForm.value);
 };
-   
+    const goToMainPage = () => {
+        router.push('/');
+        clearCart(); // Xóa giỏ hàng
+        setStep(1)  
+    };
 
     const handleRoute = () =>{
         if(currentStep.value === 1){
             navigateTo('/')
-        }else{
+        }else if(currentStep.value === 5){
+            router.push('/');
+            clearCart(); // Xóa giỏ hàng
+            setStep(1)  
+        }
+        else{
             if(currentStep.value > 1 && currentStep.value !== 4){
                 setStep(currentStep.value - 1)
             }else{
@@ -82,14 +97,6 @@
             }
         }
     }
-
-    import { computed } from 'vue';
-    import { useCartStore } from '~/stores/cart';
-
-  const { getCartItems } = useCartStore();
-  
-  const cartItems = computed(() => getCartItems());
-  const cartNumber = computed(() => cartItems.value.length);
 </script>
 
 <style scoped></style>

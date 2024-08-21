@@ -111,7 +111,7 @@ import { useStepStore } from '~/stores/steps';
 import { useCartStore } from '~/stores/cart';
 import { useFetchSims } from '~/composables/fetchSims';
 
-const { getCartItems, clearCart } = useCartStore();
+const { getCartItems } = useCartStore();
 const  {currentStep, setStep, isForm} = useStepStore();
 console.log ('hiện tại', currentStep)
 

@@ -52,6 +52,9 @@ import { useStepStore } from '~/stores/steps';
 const { currentStep, setStep } = useStepStore();
 const selectedPaymentMethod = ref('');
 
+onMounted(() => {
+    selectedPaymentMethod.value = 'Thẻ ngân hàng nội địa'; // Giá trị mặc định ban đầu
+});
 // Hàm xử lý khi gửi form
 const handleSubmit = () => {
     if (selectedPaymentMethod.value) {

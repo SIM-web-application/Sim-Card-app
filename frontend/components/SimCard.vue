@@ -1,7 +1,7 @@
 <template>
 
-    <div :class="sim.status === 'available' ? '' : 'opacity-50'" class="w-full lg:w-[300px] h-[280px] bg-[#FFF5F5] rounded-3xl pb-5">
-        <div class="flex pt-5 h-3/5 justify-center gap-5 lg:gap-9">
+    <div :class="sim.status === 'available' ? '' : 'opacity-50'" class="w-[300px] h-[280px] bg-[#FFF5F5] rounded-3xl pb-5">
+        <div class="flex pt-5 h-3/5 justify-center gap-8 lg:gap-9">
             <div class="">
                 <h1 class="font-bold text-2xl mb-2">{{ sim.plan.name }}</h1>
                 <h2 class="font-bold">{{ sim.plan.dataMonth }}/ tháng</h2>
