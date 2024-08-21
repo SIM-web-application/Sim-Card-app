@@ -36,7 +36,7 @@
                 <button
                     id="paymentButton"
                     type="submit"
-                    class="border w-full p-2 rounded-md bg-[#FF353C] text-white lg:mb-2"
+                    class="border w-full p-2 py-4 lg:p-2 rounded-md bg-[#FF353C] text-white lg:mb-2 mb-2"
                 >
                     Tiến hành đặt hàng
                 </button>

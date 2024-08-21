@@ -49,7 +49,7 @@
                         <SimCard :sim="p"></SimCard>
                     </div>
                 </div>
-                <!-- button phone -->
+                <!-- button mobile -->
                 <div v-if="!isForm" class="fixed bottom-0 left-0 w-full lg:hidden bg-white text-white flex flex-col justify-center">
                     <div v-if="simChosens > 0" class="flex bg-white border-t p-2 justify-between">
                         <div class="text-black bg-white">
@@ -62,7 +62,7 @@
                     <button :disabled="!(simChosens > 0)"
                         :class="!(simChosens > 0) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700 hover:duration-500'"
                         @click="goToNextStep"
-                        class="w-full p-4 m-2 bg-[#FF353C] rounded-lg flex items-center justify-center">
+                        class="w-90 p-4 m-2 bg-[#FF353C] rounded-lg flex items-center justify-center">
                         <p class="mr-2">Tiếp tục</p>
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                             class="size-5 h-full">

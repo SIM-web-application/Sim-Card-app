@@ -157,7 +157,6 @@
   import { reactive, ref, computed, watchEffect, onMounted } from 'vue';
   import * as Yup from 'yup'
   import { useStepStore } from '~/stores/steps'
-  
 
   const { currentStep, setStep, isForm } = useStepStore()
   
