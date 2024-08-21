@@ -3,7 +3,7 @@
         <div class=" grid grid-cols-4">
             <div class="col-span-4 lg:col-span-3 md:ml-10 ">
                 <header
-                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b lg:static lg:border-none ">
+                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b lg:w-3/4 lg:border-b-2 lg:h-16    ">
                     <div class=" col-span-1 flex items-center pl-8">
                         <button @click="handleRoute"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                 fill="currentColor" class="size-5 hover:text-rose-500">
@@ -27,7 +27,7 @@
                     </div>
                 </header>
             </div>
-            <div class="hidden lg:block col-span-1 text-black bg-gray-100">
+            <div class="hidden lg:block col-span-1 text-black bg-gray-100 fixed right-0 w-3/12 h-16">
                 <div class=" px-2 flex items-center h-full font-bold">
                     Giỏ hàng
                 </div>

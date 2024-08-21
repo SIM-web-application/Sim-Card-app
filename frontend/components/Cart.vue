@@ -1,6 +1,6 @@
 <!-- components/cart.vue -->
 <template >
-    <div  class="hidden col-span-1 min-h-screen h-auto bg-gray-100 px-2 pt-1 lg:flex flex-col justify-between">
+    <div  class="hidden col-span-1 min-h-screen h-auto bg-gray-100 px-2 pt-1 lg:flex flex-col justify-between ">
       <div v-if="cartItems.length === 0" class="p-16">Chưa có sản phẩm</div>
       <div v-else>
         <div v-for="item in cartItems" :key="item._id" class="border-b-2 py-5">
@@ -12,7 +12,7 @@
         </div>
       </div>
       
-      <div v-if="cartItems.length > 0" :class="currentStep !== 3 ? 'border-t-2':''" class="pb-16 pt-2">
+      <div v-if="cartItems.length > 0" :class="currentStep !== 3 ? 'border-t-2':''" class="pb-16 pt-2 mb-4">
         <div v-if="currentStep >= 3">
           <div class="flex justify-between">
               <p>{{ cartNumber }} sản phẩm</p>

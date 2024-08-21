@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="grid grid-cols-3">
+      <div class="grid grid-cols-3 mt-20">
         <form @submit="handleSubmit" :class="currentStep === 3 ? 'hidden lg:block':''" class="col-span-3 lg:col-span-2 p-4 space-y-3 pb-16 lg:pb-0">
           <h1 class="font-semibold pt-8 pb-3">Thông tin cá nhân:</h1>
           <div class="flex flex-col">

@@ -3,7 +3,8 @@
     <div class="grid grid-cols-4 border-t-2 mt-10 lg:mt-0">
         <div class="col-span-4 lg:col-span-3 lg:ml-10">
             <div v-if="currentStep <= 3"
-                class="py-4 lg:py-8 lg:pl-8 pr- steps flex items-center justify-between w-full lg:w-11/12 flex-nowrap space-x-4">
+                class="py-4 lg:py-8 lg:pl-8 pr- steps flex items-center justify-between w-full lg:w-2/3 flex-nowrap space-x-4
+                     bg-white lg:fixed top-16">
                 <div :class="currentStep === 1 ? 'font-bold' : 'font-normal'"
                     class="flex items-center flex-col lg:flex-row text-center">
                     <span :class="currentStep === 1 ? 'bg-[#FF353C]' : 'hidden'"
@@ -56,8 +57,7 @@
                             <h1><b>TẠM TÍNH</b></h1>
                             <p class="text-sm">Đã bao gồm VAT</p>
                         </div>
-                        <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>
-                        
+                        <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>                        
                     </div>
                     <button :disabled="!(simChosens > 0)"
                         :class="!(simChosens > 0) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700 hover:duration-500'"
@@ -97,7 +97,9 @@
                 <Infor/>
             </div>            
         </div>
-        <Cart />
+        <div class="fixed right-0 top-[62px] w-3/12 lg:border-t-2"> 
+            <Cart />
+        </div>
     </div>
 </template>
 

@@ -2,7 +2,7 @@
     <div>
         <div class="col-span-3 lg:ml-10 flex flex-col justify-between lg:flex-none h-screen">
             <div class="grid grid-cols-3 ">
-                <div class="col-span-3 lg:col-span-2 px-4">
+                <div class="col-span-3 lg:col-span-2 px-4 lg:mt-16">
                     <h1 class="font-bold py-8">Thông tin đơn hàng</h1>
                     <!-- ẩn đặt hàng này khi ở mobile -->
                     <div v-if="currentStep === 5" class="dathangthanhcong hidden lg:flex flex-row p-2">
@@ -96,7 +96,7 @@
                 <button v-if="currentStep === 4" @click="goToNextStep"
                     class="w-full bg-[#FF353C] p-2 py-4 lg:py-2  rounded-md text-white lg:mb-2 my-2">Xác nhận đơn hàng</button>
                 <button v-if="currentStep === 5" @click.prevent="goToMainPage"
-                    class="w-full p-4 rounded-md text-[#FF353C] lg:border text-center inline-block lg:mb-16 my-2">
+                    class="w-full p-4 rounded-md text-[#FF353C] lg:border text-center inline-block  my-2">
                     <button><b>Quay trở về trang chính</b></button>
                 </button>
             </div>
