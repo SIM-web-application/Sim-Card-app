@@ -40,7 +40,7 @@
                             <p>{{ form.email }}</p>
                             <p>{{ form.address }}, {{ form.ward }}, {{ form.district }}, {{ form.city }}</p>
                             <textarea readonly v-model="form.note"
-                                placeholder="Ghi chú cho người giao hàng" maxlength="505"
+                                placeholder="Không ghi chú" maxlength="350"
                                 class="min-h-[75px] max-h-[105px] w-full pt-2 rounded outline-none resize-none text-slate-800"  />
                         </div>
                     </div>
