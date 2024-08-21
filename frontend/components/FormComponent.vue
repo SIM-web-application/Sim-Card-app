@@ -11,7 +11,7 @@
               v-model="form.name"
               type="text"
               class="p-2 border rounded outline-none"
-              @input="clearError('name')"
+              @input="validateField('name')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.name" class="text-red-500 text-xs">{{ errors.name }}</span>
@@ -24,7 +24,7 @@
               v-model="form.phone"
               type="text"
               class="p-2 border rounded"
-              @input="clearError('phone')"
+              @input="validateField('phone')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.phone" class="text-red-500 text-xs">{{ errors.phone }}</span>
@@ -37,7 +37,7 @@
               v-model="form.email"
               type="email"
               class="p-2 border rounded"
-              @input="clearError('email')"
+              @input="validateField('email')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.email" class="text-red-500 text-xs">{{ errors.email }}</span>
@@ -51,7 +51,7 @@
               v-model="form.city"
               type="text"
               class="p-2 border rounded outline-none"
-              @input="clearError('city')"
+              @input="validateField('city')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.city" class="text-red-500 text-xs">{{ errors.city }}</span>
@@ -64,7 +64,7 @@
               v-model="form.district"
               type="text"
               class="p-2 border rounded outline-none"
-              @input="clearError('district')"
+              @input="validateField('district')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.district" class="text-red-500 text-xs">{{ errors.district }}</span>
@@ -77,7 +77,7 @@
               v-model="form.ward"
               type="text"
               class="p-2 border rounded outline-none"
-              @input="clearError('ward')"
+              @input="validateField('ward')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.ward" class="text-red-500 text-xs">{{ errors.ward }}</span>
@@ -90,7 +90,7 @@
               v-model="form.address"
               type="text"
               class="p-2 border rounded outline-none text-sm"
-              @input="clearError('address')"
+              @input="validateField('address')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.address" class="text-red-500 text-xs">{{ errors.address }}</span>
@@ -100,22 +100,23 @@
             <textarea
               placeholder="Ghi chú cho người giao hàng"
               id="note"
-              maxlength="505"
+              maxlength="301"
               v-model="form.note"
-              class="h-[132px] p-2 border rounded outline-none"
-              @input="clearError('note')"
+              class="h-[132px] p-2 border rounded outline-none resize-none"
+              @input="validateField('note')"
               :readonly="isReadOnly"
             />
             <span v-if="errors.note" class="text-red-500 text-xs">{{ errors.note }}</span>
           </div>
           <!-- Hiển thị nút button nếu form hợp lệ -->
            <!-- web -->
-          <div :class="currentStep === 3 ? 'hidden' : ''" class="hidden lg:flex justify-end py-8 text-white">
+          <div :class="currentStep >= 3 ? 'hidden' : ''" class="hidden lg:flex justify-end py-8 text-white">
             <button
               :disabled="!isFormValid || isReadOnly"
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
               type="submit"
               class="p-2 bg-[#FF353C] rounded-lg flex items-center"
+              ref="submitButtonWeb"
             >
               <p class="">Tiếp tục</p>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 h-full">
@@ -134,6 +135,7 @@
               :class="!isFormValid || isReadOnly ? 'opacity-50' : ''"
               type="submit"
               class="w-full m-1 mr-7 p-4 bg-[#FF353C] rounded-lg flex items-center justify-center"
+              ref="submitButtonMobile"
             >
               <p class="">Tiếp tục</p>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="size-5 h-full">
@@ -146,12 +148,13 @@
             </button>
           </div>
         </form>
+        <ChildComponent ref="childComponent" />
       </div>
     </div>
   </template>
   
   <script setup>
-  import { reactive, ref, computed, watchEffect} from 'vue'
+  import { reactive, ref, computed, watchEffect, onMounted,watch } from 'vue';
   import * as Yup from 'yup'
   import { useStepStore } from '~/stores/steps'
   
@@ -177,6 +180,15 @@
   watchEffect(() => {
   isReadOnly.value = currentStep.value > 2
 })
+
+onMounted(() => {
+  const savedFormData = sessionStorage.getItem('formData');
+  if (savedFormData) {
+    Object.assign(form, JSON.parse(savedFormData));
+    isFormValid.value = true
+  }
+});
+
   // Xác thực form với Yup
   const schema = Yup.object().shape({
     name: Yup.string()
@@ -191,9 +203,11 @@
       .required('Email là bắt buộc'),
   
     phone: Yup.string()
-      .matches(/^(?:\+84|0)(3[2-9]|5[6-9]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$/, 
-          'Số điện thoại phải bắt đầu bằng +84 hoặc 0 và thuộc các nhà mạng hợp lệ tại Việt Nam')
-      .required('Số điện thoại là bắt buộc'),
+    .matches(/^(?:\+84|0)(3[2-9]|5[6-9]|7[0-9]|8[1-9]|9[0-9])[0-9]{7}$/, 
+    'Số điện thoại phải bắt đầu bằng +84 hoặc 0 và thuộc các nhà mạng hợp lệ tại Việt Nam')
+    .min(10, 'Số điện thoại ít nhất 10')
+    .max(11, 'Số điện thoại không đúng')
+    .required('Số điện thoại là bắt buộc'),
   
     city: Yup.string()
       .required('Tỉnh/Thành phố là bắt buộc')
@@ -209,21 +223,33 @@
   
     address: Yup.string()
       .required('Địa chỉ là bắt buộc')
-      .max(255, 'Địa chỉ không được vượt quá 255 ký tự')
+      .max(255, 'Địa chỉ không được vượt quá 255 ký tự'),
+    note: Yup.string()
+      .max(300, 'không được quá 300 ký tự')
   })
-  
+
+  // Hàm xác thực một trường cụ thể
+  const validateField = (field) => {
+  try {
+    schema.validateSyncAt(field, form, { abortEarly: false });
+    delete errors.value[field];
+  } catch (err) {
+    errors.value[field] = err.message;
+  }
+};
+
   const isFormValid = computed(() => {
-    try {
-      schema.validateSync(form, { abortEarly: false })
-      return true
-    } catch (err) {
-      errors.value = {}
-      err.inner.forEach((e) => {
-        errors.value[e.path] = e.message
-      })
-      return false
-    }
-  })
+  try {
+    schema.validateSync(form, { abortEarly: false });
+    return true;
+  } catch (err) {
+    errors.value = {};
+    err.inner.forEach((e) => {
+      errors.value[e.path] = e.message;
+    });
+    return false;
+  }
+});
   
   // Xử lý sự kiện gửi form
   const handleSubmit = async (e) => {
@@ -238,13 +264,6 @@
     sessionStorage.setItem('formData', JSON.stringify(form))
     setStep(3)
     isReadOnly.value = true
-    
-    // Emit event with form data
-  }
-  
-  // Xóa lỗi khi người dùng nhập
-  const clearError = (field) => {
-    delete errors.value[field]
-  }
+  };
+
   </script>
-  

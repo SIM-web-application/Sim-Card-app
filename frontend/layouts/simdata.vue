@@ -3,8 +3,8 @@
         <div class=" grid grid-cols-4">
             <div class="col-span-4 lg:col-span-3 md:ml-10 ">
                 <header
-                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b  ">
-                    <div class="col-span-1 flex items-center pl-8">
+                    class="grid grid-cols-2 grid-flow-col py-2 lg:py-2 fixed top-0 bg-white border-b lg:static lg:border-none ">
+                    <div class=" col-span-1 flex items-center pl-8">
                         <button @click="handleRoute"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"
                                 fill="currentColor" class="size-5 hover:text-rose-500">
                                 <path fill-rule="evenodd"
@@ -75,8 +75,10 @@
         if(currentStep.value === 1){
             navigateTo('/')
         }else{
-            if(currentStep.value > 1){
+            if(currentStep.value > 1 && currentStep.value !== 4){
                 setStep(currentStep.value - 1)
+            }else{
+                setStep(2)
             }
         }
     }

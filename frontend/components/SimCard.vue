@@ -24,7 +24,7 @@
                             clip-rule="evenodd" />
                     </svg>
                 </button>
-                <input type="number" v-model="quantity" min="0" readonly
+                <input type="number" v-model="quantity" min="0" max="100"
                     class="quantity w-2/3 rounded-xl text-center font-bold" />
                 <button :disabled="sim.status !== 'available'" @click="increaseQuantity" class="plus text-[#FF353C]"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="currentColor" class="size-12">
@@ -54,7 +54,10 @@ onMounted(() => {
   }
 });
 watch(quantity, (newQuantity) => {
-  updateCart({ ...props.sim, quantity: newQuantity });
+  if(quantity >100){
+    
+  }
+    updateCart({ ...props.sim, quantity: newQuantity });
 });
 
 const increaseQuantity = () => {

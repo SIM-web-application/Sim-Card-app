@@ -91,34 +91,11 @@
                 <FormComponent />
             </div>
             <div v-if="currentStep === 3" class="col-span-3 lg:ml-10">
-                <div class="grid grid-cols-3">
-                    <form @submit.prevent="goToNextStep" class="col-span-3 lg:col-span-2 px-4 ">
-                        <p class="font-bold py-4">Phương thức thanh toán</p>
-                        <div class=" lg:flex lg:justify-between font-semibold space-y-5 lg:space-y-0">
-                            <div
-                                class="flex border justify-between w-full p-2 mr-2 rounded-md hover:border-rose-500">
-                                <label for="bank block">Thẻ ngân hàng nội địa</label>
-                                <input type="radio" id="bank" name="fav_language" value="Thẻ ngân hàng nội địa">
-                            </div>
-                            <div class="flex border justify-between w-full p-2 mr-2 rounded-md hover:border-rose-500">
-                                <label for="cod block">Thanh toán khi nhận hàng (COD)</label>
-                                <input type="radio" id="cod" name="fav_language"
-                                    value="Thanh toán khi nhận hàng (COD)">
-                            </div>
-                        </div>
-                        <p class="text-sm py-4 text-center">Tôi đã đọc và đồng ý với việc chia sẻ những thông tin
-                            trên theo
-                            <span class="font-bold">Chính sách bảo mật</span> của myLocal.vn
-                        </p>
-                        <button class="border w-full p-2 rounded-md bg-[#FF353C] text-white lg:mb-2">Tiến hành đặt
-                            hàng</button>
-                    </form>
-                </div>
+                <Payment/>
             </div>
             <div v-if="currentStep >= 4" >
                 <Infor/>
-            </div>
-            
+            </div>            
         </div>
         <Cart />
     </div>
@@ -129,12 +106,10 @@ import { ref, onMounted, watchEffect } from 'vue'
 import SimCard from '~/components/SimCard.vue'
 import Cart from '~/components/Cart.vue';
 import FormComponent from '~/components/FormComponent.vue';
+import Payment from '~/components/Payment.vue';
 import { useStepStore } from '~/stores/steps';
 import { useCartStore } from '~/stores/cart';
 import { useFetchSims } from '~/composables/fetchSims';
-import { useRouter } from 'vue-router';
-
-const router = useRouter();
 
 const { getCartItems, clearCart } = useCartStore();
 const  {currentStep, setStep, isForm} = useStepStore();
@@ -144,12 +119,6 @@ const goToNextStep = () => {
   if (currentStep.value) {
     setStep(currentStep.value + 1);
   }
-};
-
-const goToMainPage = () => {
-    router.push('/');
-    clearCart(); // Xóa giỏ hàng
-    setStep(1)  
 };
 
 const cartItems = computed(() => getCartItems());
@@ -169,11 +138,4 @@ console.log("giá trị Sim", sims)
 </script>
 
 <style scoped>
-    input[type="radio"]:checked {
-        accent-color: #ef4444; /* Màu đỏ của Tailwind */       
-    }
-    input[type="radio"]{
-        width: 30px;
-    }
-
 </style>
