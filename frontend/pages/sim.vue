@@ -57,7 +57,7 @@
                             <h1><b>TẠM TÍNH</b></h1>
                             <p class="text-sm">Đã bao gồm VAT</p>
                         </div>
-                        <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>                        
+                        <h1 class="text-rose-500 text-xl"><b>{{ formatCurrency(totalAmount) }} đ</b></h1>                        
                     </div>
                     <button :disabled="!(simChosens > 0)"
                         :class="!(simChosens > 0) ? 'opacity-50 cursor-not-allowed' : 'hover:bg-red-700 hover:duration-500'"
@@ -122,7 +122,9 @@ const goToNextStep = () => {
     setStep(currentStep.value + 1);
   }
 };
-
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat('vi-VN').format(value);
+};
 const cartItems = computed(() => getCartItems());
 const simChosens = computed(() => cartItems.value.length);
 const totalAmount = computed(() => {

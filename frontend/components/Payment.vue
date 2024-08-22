@@ -36,7 +36,7 @@
                             <p class="text-sm">Đã bao gồm VAT <span v-if="currentStep >= 3">và phí vận chuyển</span></p>
                         </div>
                         <h1 class="text-rose-500 text-xl">
-                            <b>{{ currentStep < 3 ? totalAmount : totalAmount + 30000 }} đ</b></h1>
+                            <b>{{ formatCurrency(currentStep < 3 ? totalAmount : totalAmount + 30000) }} đ</b></h1>
                         
                     </div>
                     <p class="text-sm py-4 text-center pr-2">
@@ -82,7 +82,10 @@ const handleSubmit = () => {
         alert('Vui lòng chọn phương thức thanh toán.');
     }
 };
-
+// format tiền tệ
+const formatCurrency = (value) => {
+        return new Intl.NumberFormat('vi-VN').format(value);
+    };
 // Hàm chuyển sang bước tiếp theo
 const goToNextStep = () => {
     if (currentStep.value) {

@@ -43,7 +43,7 @@
                     <h1 class="font-bold py-2">SIM Local . Gói {{ item.plan.name }}</h1>
                     <div class="flex justify-between text-xl">
                         <p>Số lượng: {{ item.quantity }}</p>
-                        <p class="font-bold">{{ item.quantity * item.simPrice }} đ</p>
+                        <p class="font-bold">{{ formatCurrency(item.quantity * item.simPrice) }} đ</p>
                     </div>
                 </div>
                 <div v-if="cartNumber > 0 && currentStep >= 3" class="flex bg-white border-t p-2 justify-between">
@@ -51,7 +51,7 @@
                             <h1><b>{{ currentStep >= 4 ? 'TỔNG TIỀN': 'TẠM TÍNH' }}</b></h1>
                             <p class="text-sm">Đã bao gồm VAT</p>
                         </div>
-                        <h1 class="text-rose-500 text-xl"><b>{{ totalAmount }} đ</b></h1>
+                        <h1 class="text-rose-500 text-xl"><b>{{ formatCurrency(totalAmount) }} đ</b></h1>
                         
                 </div>
             </div>
@@ -74,7 +74,10 @@
       return cartItems.value.reduce((sum, item) => sum + (item.quantity * item.simPrice), 0);
     });
 
-
+    // format tiền tệ
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('vi-VN').format(value);
+    };
     const {currentStep , setStep, setIsForm ,isForm} = useStepStore();
     const router = useRouter()
     // trạng thái giỏ hàng mb

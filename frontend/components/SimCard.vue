@@ -6,7 +6,7 @@
                 <h1 class="font-bold text-2xl mb-2">{{ sim.plan.name }}</h1>
                 <h2 class="font-bold">{{ sim.plan.dataMonth }}/ tháng</h2>
                 <p>{{ sim.plan.dataDay }}/ ngày</p>
-                <p>{{ sim.plan.price }} đ/ tháng</p>
+                <p>{{ formatCurrency(sim.plan.price) }} đ/ tháng</p>
             </div>
             <div class="">
                 <button class="bg-rose-600 w-full h-5/6 ml-4 px-3 py-16 flex items-center justify-center rounded-2xl">
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="flex flex-col px-6">
-            <div class="text-rose-500 font-bold text-xl py-2">{{ sim.simPrice }} đ/ SIM</div>
+            <div class="text-rose-500 font-bold text-xl py-2">{{ formatCurrency(sim.simPrice) }} đ/ SIM</div>
             <div class="quantity-selector flex gap-2">
                 <button :disabled="sim.status !== 'available'" @click="decreaseQuantity" class="minus text-gray-400"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                         fill="currentColor" class="size-12">
@@ -47,6 +47,10 @@ const props = defineProps(['sim']);
 const { updateCart, getCartItems } = useCartStore();
 const quantity = ref(0);
 
+//format tiền tệ
+const formatCurrency = (value) => {
+  return new Intl.NumberFormat('vi-VN').format(value);
+};
 onMounted(() => {
   const itemInCart = getCartItems().find(item => item._id === props.sim._id);
   if (itemInCart) {

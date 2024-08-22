@@ -69,7 +69,7 @@
                             <p class="text-xs ">Đã bao gồm VAT <span v-if="currentStep >= 3">và phí vận chuyển</span></p>
                         </div>
                         <h1 class="text-rose-500 text-xl">
-                            <b>{{ currentStep < 3 ? totalAmount : totalAmount + 30000 }} đ</b></h1>
+                            <b>{{ formatCurrency(currentStep < 3 ? totalAmount : totalAmount + 30000) }} đ</b></h1>
                         
                 </div>
                 <div v-if="currentStep === 4" class="text-center text-xs lg:text-sm py-4">Bằng việc tiến hành đặt hàng,
@@ -123,6 +123,10 @@
     console.log('dữ liệu trong form',form)
     const {currentStep, setStep} = useStepStore();
 
+    // format tiền tệ
+    const formatCurrency = (value) => {
+        return new Intl.NumberFormat('vi-VN').format(value);
+    };
     const goToNextStep = () => {
         if (currentStep.value) {
             setStep(currentStep.value + 1);

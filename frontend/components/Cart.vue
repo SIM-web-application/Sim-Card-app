@@ -7,7 +7,7 @@
           <h1 class="font-bold py-2">SIM Local . Gói {{ item.plan.name }}</h1>
           <div class="flex justify-between">
             <p>Số lượng: {{ item.quantity }}</p>
-            <p class="font-bold">{{ item.quantity * item.simPrice }} đ</p>
+            <p class="font-bold">{{ formatCurrency(item.quantity * item.simPrice) }} đ</p>
           </div>
         </div>
       </div>
@@ -16,17 +16,17 @@
         <div v-if="currentStep >= 3">
           <div class="flex justify-between">
               <p>{{ cartNumber }} sản phẩm</p>
-              <p>{{ totalAmount }} đ</p>
+              <p>{{ formatCurrency(totalAmount) }} đ</p>
           </div>
           <div class="flex justify-between pb-5">
             <p>Phí vận chuyển</p>
-            <p>30000 đ</p>
+            <p>{{ formatCurrency(30000) }} đ</p>
           </div>
         </div>
         <div :class="currentStep >= 3 ? 'border-t-2':''" class="flex justify-between font-bold">
           <h1>TẠM TÍNH </h1>
-          <p v-if="currentStep >= 3" class="font-bold text-rose-500">{{ totalAmount + 30000 }} đ</p>
-          <p v-if="currentStep < 3" class="font-bold text-rose-500">{{ totalAmount }} đ</p>
+          <p v-if="currentStep >= 3" class="font-bold text-rose-500">{{ formatCurrency(totalAmount + 30000) }} đ</p>
+          <p v-if="currentStep < 3" class="font-bold text-rose-500">{{ formatCurrency( totalAmount )}} đ</p>
         </div>
         <p class="text-xs">Đã bao gồm VAT</p>
       </div>
@@ -38,6 +38,9 @@
   import { useCartStore } from '~/stores/cart';
   import { useStepStore } from '~/stores/steps';
 
+  const formatCurrency = (value) => {
+  return new Intl.NumberFormat('vi-VN').format(value);
+  };  
   const { currentStep } = useStepStore();
   const { getCartItems } = useCartStore();
   
