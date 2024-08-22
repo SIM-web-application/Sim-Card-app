@@ -24,7 +24,7 @@
           </div>
         </div>
         <div :class="currentStep >= 3 ? 'border-t-2':''" class="flex justify-between font-bold">
-          <h1>TẠM TÍNH </h1>
+          <h1>{{currentStep === 5 ? 'TỔNG TIỀN':'TẠM TÍNH' }} </h1>
           <p v-if="currentStep >= 3" class="font-bold text-rose-500">{{ formatCurrency(totalAmount + 30000) }} đ</p>
           <p v-if="currentStep < 3" class="font-bold text-rose-500">{{ formatCurrency( totalAmount )}} đ</p>
         </div>
